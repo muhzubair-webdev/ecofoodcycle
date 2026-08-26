@@ -5,7 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 
-// 1. Simpan aplikasi ke dalam variabel $app (BUKAN langsung di-return)
+// 1. Tangkap aplikasi ke dalam variabel $app
 $app = Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
@@ -21,11 +21,11 @@ $app = Application::configure(basePath: dirname(__DIR__))
         );
     })->create();
 
-// 2. --- TAMBAHKAN KODE VERCEL DI SINI ---
+// 2. --- SISIPKAN PENGATURAN VERCEL DI SINI ---
 if (isset($_ENV['APP_STORAGE_PATH'])) {
     $app->useStoragePath($_ENV['APP_STORAGE_PATH']);
 }
-// ----------------------------------------
+// ---------------------------------------------
 
-// 3. Terakhir, baru return aplikasinya
+// 3. Kembalikan aplikasinya
 return $app;
