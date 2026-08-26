@@ -1,9 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/migrate-db', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        return 'Migrasi Sukses! Output: ' . Artisan::output();
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
 });
 
 Route::get('/login', function () {
